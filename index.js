@@ -5,7 +5,8 @@ import cors from 'cors'
 import colors from 'colors'
 import stationsRoutes from './routes/stationsRoutes.js'
 import { db } from './config/db.js'
-
+import uploadRoutes from './routes/uploadRoutets.js'
+import servicesRoutes from './routes/servicesRoutes.js'
 //Variables d entorno
 dotenv.config()
 //Configurar la app
@@ -33,7 +34,12 @@ app.use(cors(corsOptions))
 
 
 //definir una ruta
+app.use('/uploads', express.static('uploads'))
+app.use('/api/upload', uploadRoutes)
+
 app.use('/api/stations', stationsRoutes)
+app.use('/api/services', servicesRoutes)
+
 
 
 

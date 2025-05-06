@@ -36,6 +36,10 @@ const stationSchema = mongoose.Schema({
     phone: String,
     email: String
   },
+  image_url: {
+    type: String,
+    default: ''
+  },
   point: {
     type: {
       type: String,

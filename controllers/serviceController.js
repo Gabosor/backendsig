@@ -1,6 +1,6 @@
-import Stations from "../models/station.js"
+import Services from '../models/Service.js'
 
-const createStation = async (req, res) => {
+const createService =  async (req, res) => {
     if(Object.values(req.body).includes(''))
     {
         const error = new Error('Todos los campos son obligatorios')
@@ -9,27 +9,24 @@ const createStation = async (req, res) => {
         })
     }
     try {
-        const station = new Stations(req.body) 
-         await station.save()
+        const service = new Services(req.body)
+        await service.save()
         res.json({
-            "msg": "La estación se registro correctamente."
+            "msg": "El servicio se registro correctamente."
         })
     } catch (error) {
         console.log(error)
     }
 }
-const getStations = async (req, res) => {
+const getServices = async (req, res) => {
     try {
-        const stations = await Stations.find()
-        res.json(stations)
+        const services = await Services.find()
+        res.json(services)
     } catch (error) {
         console.log(error)   
     }
 }
-
-
 export {
-    createStation,
-    getStations,
-
+    createService,
+    getServices,
 }
