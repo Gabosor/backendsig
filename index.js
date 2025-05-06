@@ -7,6 +7,7 @@ import stationsRoutes from './routes/stationsRoutes.js'
 import { db } from './config/db.js'
 import uploadRoutes from './routes/uploadRoutets.js'
 import servicesRoutes from './routes/servicesRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 //Variables d entorno
 dotenv.config()
 //Configurar la app
@@ -39,6 +40,7 @@ app.use('/api/upload', uploadRoutes)
 
 app.use('/api/stations', stationsRoutes)
 app.use('/api/services', servicesRoutes)
+app.use('/api/auth', authRoutes)
 
 
 
