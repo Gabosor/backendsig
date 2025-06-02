@@ -10,9 +10,9 @@ const createStation = async (req, res) => {
     }
     try {
         const station = new Stations(req.body) 
-         await station.save()
+        await station.save()
         res.json({
-            "msg": "La estación se registro correctamente."
+            msg: "La estación se registro correctamente."
         })
     } catch (error) {
         console.log(error)
@@ -31,38 +31,28 @@ const actualizarFuelDisponible = async (req, res) => {
     console.log("Actualizando....")
     const { id } = req.params
     const { fuelType, available } = req.body
-  
-    // Validaciones iniciales
     if (!fuelType || typeof available !== 'number') {
       return res.status(400).json({
         mensaje: 'Debes proporcionar fuelType (string) y available (number)'
       })
     }
-  
     if (available < 0) {
       return res.status(400).json({ mensaje: 'El valor disponible no puede ser negativo' })
     }
-  
     try {
       const station = await Stations.findById(id)
       if (!station) {
         return res.status(404).json({ mensaje: 'Estación no encontrada' })
       }
-  
-      // Buscar el tipo de combustible específico
       const fuel = station.fuels.find(f => f.type === fuelType)
       if (!fuel) {
         return res.status(404).json({ mensaje: `No se encontró el tipo de combustible "${fuelType}" en esta estación` })
       }
-  
-      // Validar que no exceda la capacidad
       if (available > fuel.capacity) {
         return res.status(400).json({
           mensaje: `El valor disponible (${available}) no puede superar la capacidad máxima (${fuel.capacity})`
         })
       }
-  
-      // Actualizar
       fuel.available = available
       station.last_updated = Date.now()
       await station.save()
